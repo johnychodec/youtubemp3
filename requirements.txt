@@ -1,0 +1,7 @@
+python-telegram-bot==22.0
+python-dotenv==1.1.0
+yt-dlp==2025.3.31
+ffmpeg-python==0.2.0
+pcloud==1.4
+requests==2.32.3
+nest-asyncio==1.6.0 
