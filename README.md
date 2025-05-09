@@ -1,20 +1,19 @@
-# YouTube to Telegram MP3 Converter Bot
+# YouTube to MP3 Converter Bot
 
-A Telegram bot that converts YouTube videos to MP3 files and sends them back to you.
+A Telegram bot that converts YouTube videos to MP3 files and uploads them to your pCloud.
 
 ## Features
 
 - Convert YouTube videos to MP3
-- Handle videos larger than Telegram's 50MB limit via pCloud links
 - Progress updates during conversion
 - Automatic cleanup of temporary files
 
 ## Requirements
 
+- Ffmpeg
 - Python 3.11+
-- ffmpeg
-- A Telegram Bot Token
 - pCloud account
+- A Telegram Bot Token
 
 ## Installation
 
@@ -23,10 +22,7 @@ A Telegram bot that converts YouTube videos to MP3 files and sends them back to 
    ```bash
    pip install -r requirements.txt
    ```
-3. Copy `.env.example` to `.env` and fill in your credentials:
-   ```bash
-   cp .env.example .env
-   ```
+3. Create `.env` and fill in your credentials:   
 
 ## Configuration
 
@@ -47,14 +43,46 @@ DEFAULT_AUDIO_BITRATE=128
 POLLING_INTERVAL=1.0
 ```
 
-Note: The bot uses password-based authentication for pCloud. Make sure to use a strong password and enable 2FA on your pCloud account for better security.
+Note: The bot uses password-based authentication for pCloud. I didn't try that with other means.
 
 ### Access Control
 - If `ALLOWED_USER_IDS` is not set or empty, the bot will be accessible to all users
 - To restrict access, set `ALLOWED_USER_IDS` to a comma-separated list of Telegram user IDs
 - You can get your Telegram user ID by sending a message to @userinfobot
 
-## Usage
 
-1. Start the bot:
-   ```
+### Create Systemd Service
+```bash
+# Create service file
+sudo nano /etc/systemd/system/ytb-to-telegram.service
+
+# Add the following content - EXAMPLE:
+[Unit]
+Description=YouTube to Telegram MP3 Converter Bot
+After=network.target
+
+[Service]
+Type=simple
+User=your_user
+WorkingDirectory=/fullpath/pythonprojects/youtubemp3
+Environment=PATH=/fullpath/pythonprojects/ytbtomp3/ytbtomp3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=PYTHONPATH=/fullpath/ytbtomp3
+ExecStart=/fullpath/ytbtomp3/ytbtomp3/bin/python -m src.bot
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+
+# After creating the file, reload systemd
+sudo systemctl daemon-reload
+
+# Enable the service
+sudo systemctl enable ytb-to-telegram
+
+# Start the service
+sudo systemctl start ytb-to-telegram
+
+# Check status
+sudo systemctl status ytb-to-telegram
+```    
