@@ -20,7 +20,10 @@ wheels/
 .installed.cfg
 *.egg
 
-# Environment variables
+# Virtual Environment
+venv/
+ENV/
+env/
 .env
 
 # IDE
@@ -34,10 +37,20 @@ wheels/
 logs/
 
 # Temporary files
-*.tmp
-*.temp
-temp/
 tmp/
+temp/
+
+# System specific
+deployment.md
+
+# Project specific
+*.mp3
+*.mp4
+*.part
+*.ytdl
+
+# Environment variables
+.env
 
 # System files
 .DS_Store

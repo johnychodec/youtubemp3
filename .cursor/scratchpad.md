@@ -2,7 +2,6 @@
 
 ## Development Environment Setup
 
-
 ## Background and Motivation
 The goal is to create a Telegram bot that:
 1. Receives YouTube links in chat messages
@@ -304,120 +303,102 @@ The bot is running successfully. No immediate assistance is needed. Ready to pro
 8. If there are vulnerabilities that appear in the terminal, run npm audit before proceeding
 9. Always ask before using the -force git command
 
-# Deployment Instructions for Raspberry Pi
+### Still Pending:
+1. Documentation:
+   - [ ] Update README.md with current features and setup instructions
+   - [ ] Document all environment variables
+   - [ ] Add usage examples
 
-## Prerequisites
-1. Raspberry Pi running Raspberry Pi OS (preferably latest version)
-2. SSH access to your Raspberry Pi
-3. Python 3.11 or later installed
-4. ffmpeg installed
-5. rsync installed on both local machine and Raspberry Pi
+## README Finalization Plan
 
-## Setup Steps
+### 1. [ ] Update Features Section
+- Success Criteria: All implemented features are accurately listed
+- Tasks:
+  - List core features:
+    * YouTube video to MP3 conversion
+    * Progress updates during conversion
+    * Automatic file cleanup
+    * File size management
+    * pCloud integration for file storage and sharing
+  - Remove any features that aren't implemented
+  - Add any missing features that are implemented
 
-### 1. Install rsync (if not already installed)
-```bash
-# On your local machine (if using macOS)
-brew install rsync
+### 2. [ ] Update Requirements Section
+- Success Criteria: All dependencies and versions are correctly listed
+- Tasks:
+  - List Python version requirement (3.11+)
+  - List system dependencies (ffmpeg)
+  - List Python package dependencies with versions from requirements.txt
+  - Add any missing dependencies
 
-# On Raspberry Pi
-sudo apt-get update
-sudo apt-get install rsync
-```
+### 3. [ ] Update Configuration Section
+- Success Criteria: All environment variables are documented
+- Tasks:
+  - List all required environment variables:
+    * TELEGRAM_BOT_TOKEN
+    * PCLOUD_EMAIL
+    * PCLOUD_PASSWORD
+    * PCLOUD_BASE_FOLDER
+    * PCLOUD_LINK_EXPIRE_DAYS
+    * TEMP_DIR
+    * CLEANUP_OLDER_THAN
+    * LOG_LEVEL
+    * ALLOWED_USER_IDS
+    * FFMPEG_PATH
+  - Add descriptions for each variable
+  - Add example values where appropriate
+  - Add security recommendations
 
-### 2. Create Project Directory on Raspberry Pi
-```bash
-ssh pi@your_raspberry_pi_ip
-mkdir -p ~/projects/YtbToTelegram
-```
+### 4. [ ] Update Installation Instructions
+- Success Criteria: Clear step-by-step installation guide
+- Tasks:
+  - Document system requirements
+  - Document Python environment setup
+  - Document dependency installation
+  - Document configuration setup
+  - Add troubleshooting section
 
-### 3. Copy Files to Raspberry Pi
-```bash
-# From your local machine, in the project directory
-rsync -avz --exclude 'venv' --exclude '__pycache__' --exclude '.env' ./ dietpi@100.82.186.73:~/ytbtomp3
-```
+### 5. [ ] Update Usage Instructions
+- Success Criteria: Clear usage examples and commands
+- Tasks:
+  - Document how to start the bot
+  - Document available commands
+  - Add example conversations
+  - Document any limitations or restrictions
 
-### 4. Create and Activate Virtual Environment
-```bash
-# SSH into Raspberry Pi
-ssh pi@your_raspberry_pi_ip
-cd ~/projects/YtbToTelegram
+### 6. [ ] Add Project Structure Section
+- Success Criteria: Clear overview of project organization
+- Tasks:
+  - List main directories and files
+  - Explain purpose of each component
+  - Add brief description of key files
 
-# Install virtualenv if not already installed
-sudo apt-get update
-sudo apt-get install python3-venv
+### 7. [ ] Add Contributing Section
+- Success Criteria: Clear guidelines for contributing
+- Tasks:
+  - Add code style guidelines
+  - Add pull request process
+  - Add issue reporting guidelines
 
-# Create virtual environment
-python3 -m venv ytbtomp3
+### 8. [ ] Add License Section
+- Success Criteria: Clear license information
+- Tasks:
+  - Add license type
+  - Add copyright notice
+  - Add any special conditions
 
-# Activate virtual environment
-source ytbtomp3/ytbtomp3/bin/activate
-```
+## Project Status Board
+- [ ] Task 1: Update Features Section
+- [ ] Task 2: Update Requirements Section
+- [ ] Task 3: Update Configuration Section
+- [ ] Task 4: Update Installation Instructions
+- [ ] Task 5: Update Usage Instructions
+- [ ] Task 6: Add Project Structure Section
+- [ ] Task 7: Add Contributing Section
+- [ ] Task 8: Add License Section
 
-### 5. Install System Dependencies
-```bash
-# Install ffmpeg
-sudo apt-get install ffmpeg
-```
+## Executor's Feedback or Assistance Requests
+(To be filled during execution)
 
-### 6. Install Python Dependencies
-```bash
-# Make sure you're in the virtual environment
-source ytbtomp3/ytbtomp3/bin/activate
-
-# Install required packages
-pip install -r requirements.txt
-```
-
-### 7. Set Up Environment Variables
-```bash
-# Create .env file
-nano .env
-
-# Add the following content (replace with your actual values):
-TELEGRAM_BOT_TOKEN=your_bot_token_here
-PCLOUD_EMAIL=your_pcloud_email_here
-PCLOUD_PASSWORD=your_pcloud_password_here
-PCLOUD_BASE_FOLDER=/YouTubeToMP3
-PCLOUD_LINK_EXPIRE_DAYS=7
-TEMP_DIR=/tmp/ytbtomp3
-CLEANUP_OLDER_THAN=24
-LOG_LEVEL=INFO
-ALLOWED_USER_IDS=your_telegram_user_id_here
-```
-
-### 8. Create Systemd Service
-```bash
-# Create service file
-sudo nano /etc/systemd/system/ytb-to-telegram.service
-
-# Add the following content:
-[Unit]
-Description=YouTube to Telegram MP3 Converter Bot
-After=network.target
-
-[Service]
-Type=simple
-User=dietpi
-WorkingDirectory=/home/jnhr/pythonprojects/youtubemp3
-Environment=PATH=/home/jnhr/pythonprojects/ytbtomp3/ytbtomp3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-Environment=PYTHONPATH=/home/dietpi/ytbtomp3
-ExecStart=/home/dietpi/ytbtomp3/ytbtomp3/bin/python -m src.bot
-Restart=always
-RestartSec=10
-
-[Install]
-WantedBy=multi-user.target
-
-# After creating the file, reload systemd
-sudo systemctl daemon-reload
-
-# Enable the service
-sudo systemctl enable ytb-to-telegram
-
-# Start the service
-sudo systemctl start ytb-to-telegram
-
-# Check status
-sudo systemctl status ytb-to-telegram
-```
+## Lessons
+(To be filled during execution)

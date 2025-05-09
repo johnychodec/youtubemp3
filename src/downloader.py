@@ -198,7 +198,7 @@ class YouTubeDownloader:
                 'progress_hooks': [progress_hook],
                 'quiet': True,
                 'no_warnings': True,
-                'ffmpeg_location': '/opt/homebrew/Cellar/ffmpeg/7.1.1_2/bin/ffmpeg'  # Updated ffmpeg location
+                'ffmpeg_location': os.getenv('FFMPEG_PATH', '/usr/bin/ffmpeg')  # Use environment variable with fallback
             }
 
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:

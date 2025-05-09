@@ -36,10 +36,23 @@ Create a `.env` file with the following variables:
 TELEGRAM_BOT_TOKEN=your_bot_token_here
 PCLOUD_EMAIL=your_pcloud_email
 PCLOUD_PASSWORD=your_pcloud_password
-ALLOWED_USERS=user_id1,user_id2
+PCLOUD_BASE_FOLDER=your_pcloud_folder
+PCLOUD_LINK_EXPIRE_DAYS=7
+TEMP_DIR=/tmp/ytbtomp3
+CLEANUP_OLDER_THAN=24
+LOG_LEVEL=INFO
+ALLOWED_USER_IDS=user_id1,user_id2  # Optional: Comma-separated list of allowed user IDs. If not set, all users are allowed.
+FFMPEG_PATH=/usr/bin/ffmpeg
+DEFAULT_AUDIO_BITRATE=128
+POLLING_INTERVAL=1.0
 ```
 
 Note: The bot uses password-based authentication for pCloud. Make sure to use a strong password and enable 2FA on your pCloud account for better security.
+
+### Access Control
+- If `ALLOWED_USER_IDS` is not set or empty, the bot will be accessible to all users
+- To restrict access, set `ALLOWED_USER_IDS` to a comma-separated list of Telegram user IDs
+- You can get your Telegram user ID by sending a message to @userinfobot
 
 ## Usage
 
